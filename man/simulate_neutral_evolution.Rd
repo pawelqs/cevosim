@@ -10,7 +10,7 @@ simulate_neutral_evolution(
   u_init = 1,
   start_cells = 1,
   max_cells = 1e+05,
-  verbose = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
