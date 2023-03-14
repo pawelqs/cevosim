@@ -24,4 +24,5 @@ test_that("simulate_neutral_evolution() works", {
 test_that("get_snvs() works", {
   snvs <- get_snvs(population)
   expect_s3_class(snvs, "cevo_snvs")
+  expect_true(all(snvs$VAF < 0.51))
 })

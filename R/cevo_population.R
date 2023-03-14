@@ -90,7 +90,7 @@ get_snvs <- function(population) {
     mutate(VAF = .data$n / size(population) / 2) |>
     select(-"n")
 
-  as_cevo_snvs(snvs)
+  cevomod::as_cevo_snvs(snvs)
 }
 
 
