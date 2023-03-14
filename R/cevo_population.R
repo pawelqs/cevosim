@@ -34,6 +34,20 @@ init_population <- function(start_cells, u_init = 1) {
 }
 
 
+#' Sample cells in the population
+#' @param population population
+#' @param size how many cells to draw?
+#' @export
+sample_cells <- function(population, size = 5000) {
+  indexes <- sample(1:size(population), size = size)
+  cevo_population(
+    get_cells(population)[indexes],
+    get_mutation_rates(population)[indexes],
+    c(get_params(population), size = size)
+  )
+}
+
+
 #' @export
 print.cevo_population <- function(x, ...) {
   msg("<cevo_population object>")
@@ -86,4 +100,13 @@ get_snvs <- function(population) {
 
 get_cells <- function(population) {
   population$cells
+}
+
+
+get_mutation_rates <- function(population) {
+  population$mut_rates
+}
+
+get_params <- function(population) {
+  population$params
 }
