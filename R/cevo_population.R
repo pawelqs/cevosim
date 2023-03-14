@@ -79,22 +79,18 @@ size.cevo_population <- function(obj, ...) {
 #' @param population population
 #' @export
 get_snvs <- function(population) {
-  all_muts <- get_cells(population) |>
-    reduce(c) |>
-    as_tibble_col("pos") |>
-    mutate(
-      sample_id = "sample",
-      chrom = "chr",
-      .before = "pos"
-    )
+  all_muts <- tibble(
+    sample_id = "sample",
+    chrom = "chr",
+    pos = reduce(get_cells(population), c)
+  )
 
   snvs <- all_muts |>
     count(.data$sample_id, .data$chrom, .data$pos) |>
-    mutate(VAF = .data$n / length(population) / 2) |>
+    mutate(VAF = .data$n / size(population) / 2) |>
     select(-"n")
 
-  class(snvs) <- c("cevo_snvs", class(snvs))
-  snvs
+  as_cevo_snvs(snvs)
 }
 
 
